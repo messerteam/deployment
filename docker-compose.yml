@@ -1,8 +1,7 @@
-version: '3'
+version: "3"
 services:
   backend:
-    image: messerteam/backend:2.0
-    # pull_policy: always
+    image: messerteam/backend:2.1
     container_name: backend
     volumes:
       - messer-backend:/app/created_shorts
@@ -14,7 +13,6 @@ services:
       - "3001:3001"
   whisper:
     image: messerteam/whisper:2.0
-    # pull_policy: always
     container_name: whisper
     # environment:
     #   - WHISPER_MODEL=medium
@@ -23,11 +21,12 @@ services:
     ports:
       - "3002:3002"
   frontend:
-    image: messerteam/ui:2.0
-    # pull_policy: always
-    container_name: ui 
+    image: messerteam/ui:2.1
+    container_name: ui
+    networks:
+      - messer
     # environment:
-    #   - API_URL="http://localhost:3001"
+    #   - API_URL=http://localhost:3001
     ports:
       - "3000:3000"
 
@@ -35,4 +34,3 @@ volumes:
   messer-backend:
 networks:
   messer:
-
